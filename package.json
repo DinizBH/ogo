@@ -10,7 +10,8 @@
     "prisma:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
-    "postinstall": "node ./scripts/fix-prisma-client.js",
+    "postinstall": "prisma generate && node ./scripts/fix-prisma-client.js",
+    "prebuild": "prisma generate",
     "postbuild": "node ./scripts/postdeploy.js"
   },
   "prisma": {
