@@ -178,19 +178,23 @@ export function getMediaUrl(id?: string | null) {
 }
 
 export async function getHomeContent(): Promise<HomeContentData> {
-  const record = await prisma.homeContent.findFirst();
-  if (!record) return defaultHomeContent;
+  try {
+    const record = await prisma.homeContent.findFirst();
+    if (!record) return defaultHomeContent;
 
-  const data = record.data as HomeContentData;
-  return {
-    ...defaultHomeContent,
-    ...data,
-    hero: { ...defaultHomeContent.hero, ...data.hero },
-    about: { ...defaultHomeContent.about, ...data.about },
-    video: { ...defaultHomeContent.video, ...data.video },
-    services: { ...defaultHomeContent.services, ...data.services },
-    podcasts: { ...defaultHomeContent.podcasts, ...data.podcasts },
-    contact: { ...defaultHomeContent.contact, ...data.contact },
-    map: { ...defaultHomeContent.map, ...data.map },
-  };
+    const data = record.data as HomeContentData;
+    return {
+      ...defaultHomeContent,
+      ...data,
+      hero: { ...defaultHomeContent.hero, ...data.hero },
+      about: { ...defaultHomeContent.about, ...data.about },
+      video: { ...defaultHomeContent.video, ...data.video },
+      services: { ...defaultHomeContent.services, ...data.services },
+      podcasts: { ...defaultHomeContent.podcasts, ...data.podcasts },
+      contact: { ...defaultHomeContent.contact, ...data.contact },
+      map: { ...defaultHomeContent.map, ...data.map },
+    };
+  } catch (error) {
+    return defaultHomeContent;
+  }
 }

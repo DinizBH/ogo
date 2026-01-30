@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import About from "./components/About";
 import Contact from "./components/Contact";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
