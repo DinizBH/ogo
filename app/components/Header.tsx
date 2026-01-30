@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useHeaderScroll } from "../scripts/useHeaderScroll";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Início", href: "#inicio" },
@@ -37,14 +38,16 @@ export default function Header() {
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        isScrolled
+          ? "bg-white shadow-md dark:bg-slate-900"
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <a
           href="#inicio"
           className={`flex items-center gap-3 text-xl font-bold tracking-tight transition-colors ${
-            isScrolled ? "text-secondary" : "text-white"
+            isScrolled ? "text-secondary dark:text-slate-100" : "text-white"
           }`}
         >
           <Image
@@ -59,7 +62,7 @@ export default function Header() {
 
         <nav className="flex items-center gap-6">
           <button
-            className={`md:hidden ${isScrolled ? "text-secondary" : "text-white"}`}
+            className={`md:hidden ${isScrolled ? "text-secondary dark:text-slate-100" : "text-white"}`}
             aria-label="Abrir menu"
             onClick={() => setIsMenuOpen(true)}
           >
@@ -86,12 +89,13 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className={`relative transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:text-primary hover:after:w-full ${
-                  isScrolled ? "text-secondary" : "text-white"
+                  isScrolled ? "text-secondary dark:text-slate-100" : "text-white"
                 }`}
               >
                 {item.label}
               </a>
             ))}
+            <ThemeToggle />
             <a
               href="https://wa.me/5531999057269"
               className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
@@ -106,7 +110,7 @@ export default function Header() {
               href="/painel"
               className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                 isScrolled
-                  ? "border-primary text-primary hover:bg-primary hover:text-white"
+                  ? "border-primary text-primary hover:bg-primary hover:text-white dark:border-slate-300 dark:text-slate-100 dark:hover:bg-slate-800"
                   : "border-white/70 text-white hover:bg-white/10"
               }`}
             >
@@ -209,6 +213,14 @@ export default function Header() {
           >
             Painel privado
           </a>
+          <div
+            className={`flex justify-between rounded-lg border border-zinc-200 px-4 py-3 ${
+              isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+            }`}
+            style={{ transitionDelay: `${(navItems.length + 2) * 70}ms` }}
+          >
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
     </header>
